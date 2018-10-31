@@ -14,12 +14,12 @@ class TrafficLight
 {
   public:
     TrafficLight();
-    TrafficLight(geometry_msgs::Pose pose, std::string reach_threshold)
-        : pose_(pose), name_(reach_threshold)
+    TrafficLight(geometry_msgs::Pose pose, int trafficlight_no)
+        : pose_(pose), name_(trafficlight_no)
     {
     }
     geometry_msgs::Pose pose_;
-    std::string name_;
+    int name_;
 };
 
 class TrafficlightDetector
@@ -45,7 +45,7 @@ class TrafficlightDetector
 
     int readTrafficLights(std::string filename)
     {
-        const int rows_num = 7; // x, y, z, Qx,Qy,Qz,Qw
+        const int rows_num = 8; // x, y, z, Qx,Qy,Qz,Qw, Traffic Light Name
         boost::char_separator<char> sep(",", "", boost::keep_empty_tokens);
         std::ifstream ifs(filename.c_str());
         std::string line;
@@ -81,14 +81,15 @@ class TrafficlightDetector
                 pose.orientation.y = data[4];
                 pose.orientation.z = data[5];
                 pose.orientation.w = data[6];
-                waypoints_.push_back(WayPoint(waypoint, (int)data[7], data[8] / 2.0));
+                trafficlights_.push_back(TrafficLight(pose, (int)data[7]));
             }
         }
+        return 0;
     }
 
   private:
     ros::Rate rate_;
     ros::NodeHandle nh_;
     ros::Publisher trafficlight_pub_; // 信号位置をパブリッシュする
-    std::vector<geometry_msgs::Pose> trafficlights_; // 読み込んだTraficLightの配列
+    std::vector<TrafficLight> trafficlights_; // 読み込んだTraficLightの配列
 };
