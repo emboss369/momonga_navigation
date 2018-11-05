@@ -21,10 +21,10 @@ include_directories(
   ${Boost_INCLUDE_DIRS}
 )
 add_executable          (draw_frames                        src/draw_frames.cpp)
-add_executable          (trafficlight_detector              src/waypoint_navigator.cpp)
+#add_executable          (trafficlight_detector              src/trafficlight_detector.cpp)
 
 target_link_libraries   (draw_frames                        ${catkin_LIBRARIES})
-target_link_libraries   (trafficlight_detector              ${catkin_LIBRARIES})
+#target_link_libraries   (trafficlight_detector              ${catkin_LIBRARIES})
 
 
 
