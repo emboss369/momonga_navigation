@@ -9,8 +9,16 @@ find_package(catkin REQUIRED COMPONENTS
   tf
 )
 
+## Generate services in the 'srv' folder
+add_service_files(
+  FILES
+  ImageDetection.srv
+)
+
 catkin_package(
 )
+
+
 
 ###########
 ## Build ##
@@ -22,6 +30,11 @@ include_directories(
 )
 add_executable          (draw_frames                        src/draw_frames.cpp)
 #add_executable          (trafficlight_detector              src/trafficlight_detector.cpp)
+
+## ================================================================
+## dependencies to build msgs and srvs
+## ================================================================
+#add_dependencies(waypoint_generator_node ${PROJECT_NAME}_generate_messages_cpp)
 
 target_link_libraries   (draw_frames                        ${catkin_LIBRARIES})
 #target_link_libraries   (trafficlight_detector              ${catkin_LIBRARIES})

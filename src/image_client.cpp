@@ -51,6 +51,8 @@ public:
 
     //pub_.publish(input_bridge->toImageMsg());
     // サーバーを呼び出して結果を受け取る
+
+
   }
 };
 
