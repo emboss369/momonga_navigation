@@ -6,8 +6,8 @@
                 "limitSymbolsToIncludedHeaders": true
             },
             "includePath": [
-                "/home/hiroakikaneda/catkin_ws/install/include",
                 "/home/hiroakikaneda/catkin_ws/devel/include",
+                "/home/hiroakikaneda/catkin_ws/install/include",
                 "/opt/ros/kinetic/include",
                 "/home/hiroakikaneda/catkin_ws/src/turtlebot3_simulations/turtlebot3_fake/include",
                 "/home/hiroakikaneda/catkin_ws/src/turtlebot3_simulations/turtlebot3_gazebo/include",
