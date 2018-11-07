@@ -9,6 +9,7 @@ find_package(catkin REQUIRED COMPONENTS
   tf
   message_generation
   sensor_msgs
+  tensorflow_ros_cpp
 )
 
 ## Generate services in the 'srv' folder
@@ -33,10 +34,12 @@ catkin_package(
 include_directories(
   ${catkin_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}
+  /home/hiroaki/.local/lib/python2.7/site-packages/tensorflow/include/
 )
 add_executable          (draw_frames                        src/draw_frames.cpp)
 add_executable          (image_server                        src/image_server.cpp)
 add_executable          (image_client                        src/image_client.cpp)
+add_executable          (test                        src/test.cpp)
 #add_executable          (trafficlight_detector              src/trafficlight_detector.cpp)
 
 ## ================================================================
@@ -45,10 +48,12 @@ add_executable          (image_client                        src/image_client.cp
 add_dependencies(draw_frames ${PROJECT_NAME}_generate_messages_cpp)
 add_dependencies(image_server ${PROJECT_NAME}_generate_messages_cpp)
 add_dependencies(image_client ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(test ${PROJECT_NAME}_generate_messages_cpp)
 
 target_link_libraries   (draw_frames                        ${catkin_LIBRARIES})
 target_link_libraries   (image_server                        ${catkin_LIBRARIES})
 target_link_libraries   (image_client                        ${catkin_LIBRARIES})
+target_link_libraries   (test                        ${catkin_LIBRARIES})
 #target_link_libraries   (trafficlight_detector              ${catkin_LIBRARIES})
 
 
