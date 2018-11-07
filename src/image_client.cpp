@@ -5,7 +5,7 @@
 #include <image_geometry/pinhole_camera_model.h>
 #include <tf/transform_listener.h>
 #include <sensor_msgs/image_encodings.h>
-#include <opencv2/highgui/highgui.hpp>
+//#include <opencv2/highgui/highgui.hpp>
 #include <momonga_navigation/TrafficLightDetect.h>
 
 // image_topicを購読して、サーバに渡して結果を受け取るクライアント
@@ -55,7 +55,7 @@ class FrameDrawer
         static const int RADIUS = 3;
         cv::circle(image, cv::Point2d(10.0, 10.0), RADIUS, CV_RGB(255, 0, 0), -1);
 
-        cv::imshow("Original Image",image);
+        //cv::imshow("Original Image",image);
 
         // サーバーを呼び出して結果を受け取る
 
