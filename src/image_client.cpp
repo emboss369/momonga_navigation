@@ -5,7 +5,7 @@
 #include <image_geometry/pinhole_camera_model.h>
 #include <tf/transform_listener.h>
 #include <sensor_msgs/image_encodings.h>
-
+#include <opencv2/highgui/highgui.hpp>
 #include <momonga_navigation/TrafficLightDetect.h>
 
 // image_topicを購読して、サーバに渡して結果を受け取るクライアント
@@ -25,8 +25,9 @@ class FrameDrawer
     FrameDrawer()
         : it_(nh_)
     {
-        std::string image_topic = nh_.resolveName("image");
-        sub_ = it_.subscribeCamera(image_topic, 1, &FrameDrawer::imageCb, this);
+        ROS_INFO("init");
+        //std::string image_topic = nh_.resolveName("image");
+        sub_ = it_.subscribeCamera("/image_raw", 1, &FrameDrawer::imageCb, this);
         cvInitFont(&font_, CV_FONT_HERSHEY_SIMPLEX, 0.5, 0.5);
 
         client_ = nh_.serviceClient<momonga_navigation::TrafficLightDetect>("image_server");
@@ -35,6 +36,7 @@ class FrameDrawer
     void imageCb(const sensor_msgs::ImageConstPtr &image_msg,
                  const sensor_msgs::CameraInfoConstPtr &info_msg)
     {
+        ROS_INFO("imageCb");
         cv::Mat image;
         cv_bridge::CvImagePtr input_bridge;
         try
@@ -53,6 +55,8 @@ class FrameDrawer
         static const int RADIUS = 3;
         cv::circle(image, cv::Point2d(10.0, 10.0), RADIUS, CV_RGB(255, 0, 0), -1);
 
+        cv::imshow("Original Image",image);
+
         // サーバーを呼び出して結果を受け取る
 
         momonga_navigation::TrafficLightDetect srv;
@@ -60,6 +64,8 @@ class FrameDrawer
         if (client_.call(srv))
         {
             ROS_INFO_STREAM("DETECT RESULT : " << srv.response.category);
+        } else {
+
         }
     }
 };
@@ -68,6 +74,7 @@ int main(int argc, char **argv)
 {
     ros::init(argc, argv, "image_client");
     //std::vector<std::string> frame_ids(argv + 1, argv + argc);
-    FrameDrawer drawer();
+    FrameDrawer drawer;
+    ROS_INFO("image_client");
     ros::spin();
 }
