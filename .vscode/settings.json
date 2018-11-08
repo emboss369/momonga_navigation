@@ -24,6 +24,14 @@
         "ratio": "cpp",
         "thread": "cpp",
         "cinttypes": "cpp",
-        "typeindex": "cpp"
+        "typeindex": "cpp",
+        "cwctype": "cpp",
+        "hash_map": "cpp",
+        "hash_set": "cpp",
+        "condition_variable": "cpp",
+        "string_view": "cpp",
+        "*.tcc": "cpp",
+        "mutex": "cpp",
+        "system_error": "cpp"
     }
 }
